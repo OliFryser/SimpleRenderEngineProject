@@ -129,4 +129,5 @@ mark_as_advanced(
 	SDL2MAIN_LIBRARY
 )
 
+# add this here
 add_subdirectory(GameProgramming24/Exercise4)

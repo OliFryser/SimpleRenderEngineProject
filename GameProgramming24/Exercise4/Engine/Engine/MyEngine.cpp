@@ -43,7 +43,7 @@ namespace MyEngine {
 	{
 		sre::RenderPass renderPass = sre::RenderPass::create()
 			.withCamera(_camera)
-			.withClearColor(true, { .3f, .3f, 1, 1 })
+			.withClearColor(true, { .1, .1, .2, 1 })
 			.build();
 
 		sre::SpriteBatch::SpriteBatchBuilder spriteBatchBuilder = sre::SpriteBatch::create();

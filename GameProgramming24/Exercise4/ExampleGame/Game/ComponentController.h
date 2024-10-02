@@ -5,15 +5,21 @@
 namespace ExampleGame {
 	class ComponentController : public MyEngine::Component {
 		const float RotSpeed = 50;
-		const float MovSpeed = 5;
-		const float MovAmount = 20;
-		const glm::vec2 MovDirection = glm::vec2(1, 0);
+		const float AccelerationAmount = 150.0f;
+		const float MaxAcceleration = 50.0f;
+		const float DampingFactor = 0.9f;
+		const float MaxSpeed = 100.0f;
 
 	public:
 		glm::vec2 position;
-		float rotaiton;
+		float velocity;
+		float acceleration;
+		float rotation;
+
+		bool move;
 
 		void Init() override;
 		void Update(float) override;
+		void KeyEvent(SDL_Event&) override;
 	};
 }
