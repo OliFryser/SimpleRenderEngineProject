@@ -8,6 +8,9 @@ namespace MyEngine {
 	Engine* Engine::_instance = nullptr;
 
 	Engine::Engine() {
+		frame = 0.0f;
+		time = 0.0f;
+
 		assert(_instance == nullptr && " Only one instance of MyEngine::Engine allowed!");
 		_instance = this;
 

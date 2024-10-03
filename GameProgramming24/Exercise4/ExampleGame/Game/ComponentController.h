@@ -7,8 +7,8 @@ namespace ExampleGame {
 		const float RotSpeed = 50;
 		const float AccelerationAmount = 150.0f;
 		const float MaxAcceleration = 50.0f;
-		const float DampingFactor = 0.9f;
-		const float MaxSpeed = 100.0f;
+		const float DampingFactor = 0.95f;
+		const float MaxSpeed = 150.0f;
 
 	public:
 		glm::vec2 position;
@@ -16,10 +16,15 @@ namespace ExampleGame {
 		float acceleration;
 		float rotation;
 
-		bool move;
+		bool forward;
+		bool left;
+		bool right;
 
 		void Init() override;
 		void Update(float) override;
+		void HandleMove(MyEngine::GameObject* parent, float deltaTime);
+		void HandleRotate(MyEngine::GameObject* parent, float deltaTime);
+		void HandleBounds(MyEngine::GameObject* parent, MyEngine::Engine* engine);
 		void KeyEvent(SDL_Event&) override;
 	};
 }
