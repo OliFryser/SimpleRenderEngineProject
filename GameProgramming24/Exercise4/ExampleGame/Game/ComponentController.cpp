@@ -3,9 +3,23 @@
 #include <iostream>
 
 #include "Engine/MyEngine.h"
+#include "ComponentLaser.h"
+#include "ComponentRendererSprite.h"
 
 namespace Asteroids {
-	void ComponentController::Init() {
+	ComponentController::ComponentController(sre::Sprite laserSprite) {
+		_laserSprite = laserSprite;
+		_shoot = false;
+		_forward = false;
+		_left = false;
+		_right = false;
+
+		_acceleration = 0;
+		_velocity = 0;
+	}
+
+	void ComponentController::Init()
+	{
 		MyEngine::Engine* engine = MyEngine::Engine::GetInstance();
 		MyEngine::GameObject* parent = GetGameObject();
 
@@ -14,12 +28,13 @@ namespace Asteroids {
 		_velocity = 0.0f;
 	}
 
-	void ComponentController::Update(float deltaTime) {
+	void ComponentController::Update(float deltaTime) 
+	{
 		MyEngine::Engine* engine = MyEngine::Engine::GetInstance();
 		MyEngine::GameObject* parent = GetGameObject();
 		
 		if (_shoot) {
-			Shoot(parent);
+			Shoot(parent, engine);
 		}
 
 		HandleRotate(parent, deltaTime);
@@ -28,7 +43,8 @@ namespace Asteroids {
 		HandleBounds(parent, engine);
 	}
 
-	void ComponentController::HandleRotate(MyEngine::GameObject* parent, float deltaTime) const {
+	void ComponentController::HandleRotate(MyEngine::GameObject* parent, float deltaTime) const 
+	{
 		float rotationAmount;
 		if (_left) {
 			rotationAmount = RotSpeed * deltaTime;
@@ -89,8 +105,24 @@ namespace Asteroids {
 		}
 	}
 
-	void ComponentController::Shoot(MyEngine::GameObject* parent) {
+	void ComponentController::Shoot(MyEngine::GameObject* parent, MyEngine::Engine* engine) 
+	{
+		if (engine->GetTime() - _lastShotTime < ShotInterval) 
+			    return;
 
+		auto gameObject = engine->CreateGameObjectWithParent("Laser", parent);
+		auto laserComponent = std::make_shared<ComponentLaser>();
+		auto laserRenderer = std::make_shared<ComponentRendererSprite>();
+		laserRenderer->sprite = _laserSprite;
+		gameObject->AddComponent(laserComponent);
+		gameObject->AddComponent(laserRenderer);
+
+		gameObject->position = parent->position;
+		gameObject->rotation = parent->rotation;
+
+		gameObject->Init();
+
+		_lastShotTime = engine->GetTime();
 	}
 
 	void ComponentController::KeyEvent(SDL_Event& event)
@@ -101,10 +133,15 @@ namespace Asteroids {
 				break;
 			case SDLK_a:
 				_left = event.type == SDL_KEYDOWN;
+				break;
 			case SDLK_d:
 				_right = event.type == SDL_KEYDOWN;
+				break;
 			case SDLK_SPACE:
-				_shoot = event.type = SDL_KEYDOWN;
+				_shoot = event.type == SDL_KEYDOWN;
+				break;
+			default:
+				break;
 		}
 	}
 }

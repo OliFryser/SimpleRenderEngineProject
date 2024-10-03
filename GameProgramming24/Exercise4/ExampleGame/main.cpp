@@ -40,7 +40,7 @@ void InitGame() {
 	atlas = sre::SpriteAtlas::create("data/asteroids.json", "data/asteroids.png");
 
 	auto gameObject = engine.CreateGameObject("Player");
-	auto playerController = std::shared_ptr<Asteroids::ComponentController>(new Asteroids::ComponentController());
+	auto playerController = std::shared_ptr<Asteroids::ComponentController>(new Asteroids::ComponentController(atlas->get("laserRed04.png")));
 	auto playerRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
 	gameObject->AddComponent(playerController);
 	gameObject->AddComponent(playerRenderer);
@@ -50,13 +50,13 @@ void InitGame() {
 	std::string asteroids[]{ "meteorGrey_big2.png", "meteorGrey_med2.png", "meteorGrey_small2.png" };
 
 	for (int i = 0; i < 5; i++) {
-		auto gameObject = engine.CreateGameObject("Asteroid " + std::to_string(i));
+		auto asteroidGameObject = engine.CreateGameObject("Asteroid " + std::to_string(i));
 		auto asteroid = std::make_shared< Asteroids::ComponentAsteroid>();
 		auto asteroidRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
-		gameObject->AddComponent(asteroid);
-		gameObject->AddComponent(asteroidRenderer);
+		asteroidGameObject->AddComponent(asteroid);
+		asteroidGameObject->AddComponent(asteroidRenderer);
 
-		auto spriteName = asteroids[0];
+		std::string spriteName = asteroids[0];
 		auto sprite = atlas->get(spriteName);
 		asteroidRenderer->sprite = sprite;
 	}

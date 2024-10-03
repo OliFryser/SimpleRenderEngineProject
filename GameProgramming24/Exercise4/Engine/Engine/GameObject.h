@@ -27,7 +27,7 @@ namespace MyEngine {
 
 		std::string GetName();
 		void SetName(std::string);
-
+		
 		// private fields
 	private:
 		std::weak_ptr<GameObject> _parent;
