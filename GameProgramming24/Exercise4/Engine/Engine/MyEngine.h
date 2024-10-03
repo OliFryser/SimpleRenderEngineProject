@@ -31,6 +31,9 @@ namespace MyEngine {
 		glm::vec2 GetScreenSize() const;
 
 		int GetFrame() const { return frame; }
+		int inline GetRandomNumber(int min, int max) const {
+			return std::rand() % (max - min + 1) + min;
+		}
 		float GetTime() const { return time; }
 
 		GameObject* CreateGameObject(std::string name);

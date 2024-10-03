@@ -10,21 +10,24 @@ namespace Asteroids {
 		const float DampingFactor = 0.95f;
 		const float MaxSpeed = 150.0f;
 
-	public:
-		glm::vec2 position;
-		float velocity;
-		float acceleration;
-		float rotation;
+		bool _forward;
+		bool _left;
+		bool _right;
+		bool _shoot;
+	
+		float _velocity;
+		float _acceleration;
+		float _rotation;
 
-		bool forward;
-		bool left;
-		bool right;
+		void HandleMove(MyEngine::GameObject* parent, float deltaTime);
+		void HandleRotate(MyEngine::GameObject* parent, float deltaTime) const;
+		void HandleBounds(MyEngine::GameObject* parent, MyEngine::Engine* engine);
+		void Shoot(MyEngine::GameObject* parent);
+	
+	public:
 
 		void Init() override;
 		void Update(float) override;
-		void HandleMove(MyEngine::GameObject* parent, float deltaTime);
-		void HandleRotate(MyEngine::GameObject* parent, float deltaTime);
-		void HandleBounds(MyEngine::GameObject* parent, MyEngine::Engine* engine);
 		void KeyEvent(SDL_Event&) override;
 	};
 }
