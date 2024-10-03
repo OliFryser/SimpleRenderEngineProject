@@ -2,7 +2,7 @@
 
 #include "Engine/Component.h"
 
-namespace ExampleGame {
+namespace Asteroids {
 	class ComponentController : public MyEngine::Component {
 		const float RotSpeed = 50;
 		const float AccelerationAmount = 150.0f;

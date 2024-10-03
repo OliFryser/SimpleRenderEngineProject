@@ -5,7 +5,7 @@
 
 #include "Engine/Component.h"
 
-namespace ExampleGame {
+namespace Asteroids {
 	class ComponentRendererSprite : public MyEngine::Component {
 	public:
 		sre::Sprite sprite;

@@ -4,7 +4,7 @@
 
 #include "Engine/MyEngine.h"
 
-namespace ExampleGame {
+namespace Asteroids {
 	void ComponentController::Init() {
 		MyEngine::Engine* engine = MyEngine::Engine::GetInstance();
 		MyEngine::GameObject* parent = GetGameObject();

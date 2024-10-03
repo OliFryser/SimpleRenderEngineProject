@@ -1,6 +1,6 @@
 #include "ComponentRendererSprite.h"
 
-namespace ExampleGame {
+namespace Asteroids {
 	void ComponentRendererSprite::Render(sre::SpriteBatch::SpriteBatchBuilder& builder) {
 		MyEngine::GameObject* parent = GetGameObject();
 

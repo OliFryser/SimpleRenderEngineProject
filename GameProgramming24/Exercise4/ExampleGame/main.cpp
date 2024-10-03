@@ -13,12 +13,13 @@ void Render();
 
 MyEngine::Engine engine;
 
-glm::vec2 window_size = glm::vec2(800, 600);
+glm::vec2 window_size = glm::vec2(1200, 800);
 sre::SDLRenderer renderer;
 sre::Camera camera;
 std::shared_ptr<sre::SpriteAtlas> atlas;
 
 int main() {
+	engine.WIN_SIZE = window_size;
 	renderer.frameRender = Render;
 	renderer.frameUpdate = Update;
 	renderer.keyEvent = ProcessEvents;
@@ -27,19 +28,23 @@ int main() {
 	renderer.init();
 	camera.setWindowCoordinates();
 
-	atlas = sre::SpriteAtlas::create("data/asteroids.json", "data/asteroids.png");
-
-	auto gameObject = engine.CreateGameObject("GameObject");
-	auto componentController = std::shared_ptr<ExampleGame::ComponentController>(new ExampleGame::ComponentController());
-	auto componentRenderer = std::make_shared<ExampleGame::ComponentRendererSprite>();
-	gameObject->AddComponent(componentController);
-	gameObject->AddComponent(componentRenderer);
-
-	componentRenderer->sprite = atlas->get("playerShip2_red.png");
+	
 
 	engine.Init();
 
 	renderer.startEventLoop();
+}
+
+void InitGame() {
+	atlas = sre::SpriteAtlas::create("data/asteroids.json", "data/asteroids.png");
+
+	auto gameObject = engine.CreateGameObject("GameObject");
+	auto playerController = std::shared_ptr<Asteroids::ComponentController>(new Asteroids::ComponentController());
+	auto playerRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
+	gameObject->AddComponent(playerController);
+	gameObject->AddComponent(playerRenderer);
+
+	playerRenderer->sprite = atlas->get("playerShip2_red.png");
 }
 
 void ProcessEvents(SDL_Event& event) { 
