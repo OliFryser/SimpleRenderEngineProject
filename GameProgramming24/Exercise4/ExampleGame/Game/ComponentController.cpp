@@ -70,8 +70,20 @@ namespace Asteroids {
 		auto currentAccelerationAmount = AccelerationAmount * deltaTime;
 
 		if (_forward) {
-			if (_acceleration <= MaxAcceleration)
-				_acceleration += currentAccelerationAmount;
+			float normalizedAcceleration = _acceleration / MaxAcceleration;
+
+			if (_acceleration <= MaxAcceleration) {
+
+				if (_acceleration > 0) {
+					float easedAccelerationFactor = EaseOut(normalizedAcceleration);
+					_acceleration += easedAccelerationFactor * currentAccelerationAmount;
+					std::cout << "EasedAcceleration: " << easedAccelerationFactor << ", _acceleration: " << _acceleration << std::endl;
+				}
+				else {
+					// initial acceleration should not be eased
+					_acceleration += currentAccelerationAmount;
+				}
+			}
 
 			_velocity += _acceleration * deltaTime;
 		}
@@ -92,6 +104,11 @@ namespace Asteroids {
 			_velocity = MaxSpeed;
 
 		parent->position = parent->position + direction * _velocity * deltaTime;
+	}
+
+	float ComponentController::EaseOut(float t) const
+	{
+		return 1.0f - pow(1.0f - t, EasingFactor);
 	}
 
 	void ComponentController::HandleBounds(MyEngine::GameObject* parent, MyEngine::Engine* engine) {

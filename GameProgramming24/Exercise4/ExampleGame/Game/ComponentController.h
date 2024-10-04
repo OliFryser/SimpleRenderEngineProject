@@ -10,6 +10,7 @@ namespace Asteroids {
 		const float DampingFactor = 0.95f;
 		const float MaxSpeed = 150.0f;
 		const float ShotInterval = 0.5f;
+		const float EasingFactor = 2.0f;
 
 		bool _forward;
 		bool _left;
@@ -25,6 +26,7 @@ namespace Asteroids {
 		sre::Sprite _laserSprite;
 
 		void HandleMove(MyEngine::GameObject* parent, float deltaTime);
+		float EaseOut(float t) const;
 		void HandleRotate(MyEngine::GameObject* parent, float deltaTime) const;
 		void HandleBounds(MyEngine::GameObject*, MyEngine::Engine*);
 		void Shoot(MyEngine::GameObject*, MyEngine::Engine*);
