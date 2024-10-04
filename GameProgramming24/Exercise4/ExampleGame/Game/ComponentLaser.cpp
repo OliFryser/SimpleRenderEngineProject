@@ -23,8 +23,8 @@ namespace Asteroids {
 
 		auto parent = GetGameObject();
 		if (lifeTime >= 1.0f) {
-			//delete parent
-			//return;
+			parent->Destroy();
+			return;
 		}
 
 		parent->position += _direction * Velocity * deltaTime;

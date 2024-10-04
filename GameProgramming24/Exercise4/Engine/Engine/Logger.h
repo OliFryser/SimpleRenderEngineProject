@@ -8,7 +8,7 @@ namespace MyEngine {
 		static void Log(std::string message, ...) {
 			va_list args;
 			va_start(args, message);
-			printf(message.c_str(), args);
+			vprintf(message.c_str(), args);
 		}
 	};
 }

@@ -17,6 +17,8 @@ namespace MyEngine {
 		glm::vec2 position;
 		float rotation;
 
+		~GameObject();
+
 		void Init();
 		void Update(float);
 		void Render(sre::SpriteBatch::SpriteBatchBuilder&);
@@ -24,6 +26,8 @@ namespace MyEngine {
 
 		void AddChild(std::shared_ptr<GameObject>);
 		void AddComponent(std::shared_ptr<Component>);
+		void RemoveChild(std::shared_ptr<GameObject>);
+		void Destroy();
 
 		std::string GetName();
 		void SetName(std::string);

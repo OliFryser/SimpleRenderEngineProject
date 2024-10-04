@@ -7,6 +7,10 @@
 namespace MyEngine {
 	Engine* Engine::_instance = nullptr;
 
+	void Engine::QueueForDeletion(std::shared_ptr<GameObject> gameObject) {
+
+	}
+
 	Engine::Engine() {
 		frame = 0.0f;
 		time = 0.0f;
