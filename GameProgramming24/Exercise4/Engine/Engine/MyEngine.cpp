@@ -137,7 +137,6 @@ namespace MyEngine {
 				if (distance < first.lock()->radius + second.lock()->radius) {
 					//std::cout << "Collision detected between " << firstObject->GetName() << " and " << secondObject->GetName() << std::endl;
 					firstObject->OnCollision(secondObject);
-					secondObject->OnCollision(firstObject);
 				}
 			}
 		}

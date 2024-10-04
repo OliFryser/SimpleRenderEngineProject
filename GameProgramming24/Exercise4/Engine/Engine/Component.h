@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma once
+
 #include <memory>
 
 #include "sre/RenderPass.hpp"

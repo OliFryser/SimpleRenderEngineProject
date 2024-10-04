@@ -47,7 +47,7 @@ namespace Asteroids {
 		HandleRotate(parent, deltaTime);
 		HandleMove(parent, deltaTime);
 
-		HandleBounds(parent, engine);
+		Utils::GetInstance()->HandleBounds(parent, engine);
 	}
 
 	void ComponentController::HandleRotate(MyEngine::GameObject* parent, float deltaTime) const 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Component.h"
 
 namespace MyEngine {

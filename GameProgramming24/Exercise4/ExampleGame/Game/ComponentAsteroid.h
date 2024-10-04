@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Engine/Component.h"
 
 namespace Asteroids {
@@ -8,6 +10,5 @@ namespace Asteroids {
 	public:
 		void Init() override;
 		void Update(float) override;
-
 	};
 }

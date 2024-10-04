@@ -5,7 +5,7 @@
 
 #include "Game/ComponentController.h"
 #include "Game/ComponentRendererSprite.h"
-#include "Game/ComponentAsteroid.h"
+#include "Game/ComponentLargeAsteroid.h"
 
 void InitGame();
 void ProcessEvents(SDL_Event& event);
@@ -52,7 +52,7 @@ void InitGame() {
 
 	for (int i = 0; i < 5; i++) {
 		auto asteroidGameObject = engine.CreateGameObject("Asteroid");
-		auto asteroid = std::make_shared< Asteroids::ComponentAsteroid>();
+		auto asteroid = std::make_shared<Asteroids::ComponentLargeAsteroid>();
 		auto asteroidRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
 		asteroidGameObject->AddComponent(asteroid);
 		asteroidGameObject->AddComponent(asteroidRenderer);
