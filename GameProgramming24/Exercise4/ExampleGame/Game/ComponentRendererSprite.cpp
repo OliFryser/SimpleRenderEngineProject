@@ -6,7 +6,7 @@ namespace Asteroids {
 
 		sprite.setPosition(parent->position);
 		sprite.setRotation(parent->rotation);
-
+		sprite.setScale(parent->scale);
 		builder.addSprite(sprite);
 	}
 }

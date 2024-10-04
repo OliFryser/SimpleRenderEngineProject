@@ -15,6 +15,7 @@ namespace MyEngine {
 		// public API
 	public:
 		glm::vec2 position;
+		glm::vec2 scale{1.0f, 1.0f};
 		float rotation;
 
 		~GameObject();

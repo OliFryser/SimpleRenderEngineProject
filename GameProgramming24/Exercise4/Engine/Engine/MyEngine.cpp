@@ -7,8 +7,11 @@
 namespace MyEngine {
 	Engine* Engine::_instance = nullptr;
 
-	void Engine::QueueForDeletion(std::shared_ptr<GameObject> gameObject) {
-
+	void Engine::QueueForDeletion(std::shared_ptr<GameObject> gameObject, std::shared_ptr<GameObject> parent) {
+		auto entry = std::make_shared<struct DeletionEntry>();
+		entry->gameObject = gameObject;
+		entry->parent = parent;
+		_deletion_queue.push_back(entry);
 	}
 
 	Engine::Engine() {
@@ -59,6 +62,8 @@ namespace MyEngine {
 
 		auto spriteBatch = spriteBatchBuilder.build();
 		renderPass.draw(spriteBatch);
+
+		ClearDeletionQueue();
 	}
 
 	GameObject* Engine::CreateGameObject(std::string name) {
@@ -79,5 +84,14 @@ namespace MyEngine {
 		parent->AddChild(ret);
 
 		return ret.get();
+	}
+
+	void Engine::ClearDeletionQueue()
+	{
+		for each (auto entry in _deletion_queue)
+		{
+			entry->parent->RemoveChild(entry->gameObject);
+		}
+		_deletion_queue.clear();
 	}
 }

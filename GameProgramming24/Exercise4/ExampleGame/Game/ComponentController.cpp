@@ -14,16 +14,22 @@ namespace Asteroids {
 		_left = false;
 		_right = false;
 
+		// initialize the variables in contstructor
 		_acceleration = 0;
 		_velocity = 0;
+		_lastShotTime = 0;
+		_rotation = 0;
 	}
 
 	void ComponentController::Init()
 	{
 		MyEngine::Engine* engine = MyEngine::Engine::GetInstance();
 		MyEngine::GameObject* parent = GetGameObject();
+		
+		auto screenSize = engine->GetScreenSize();
 
-		parent->position = engine->GetScreenSize() / 2.f;
+		parent->position = { screenSize.x * .5f, screenSize.y * .25f };
+		parent->scale = { .75f, .75f };
 		_acceleration = 0.0f;
 		_velocity = 0.0f;
 	}
@@ -111,9 +117,11 @@ namespace Asteroids {
 			    return;
 
 		auto gameObject = engine->CreateGameObjectWithParent("Laser", parent);
+
 		auto laserComponent = std::make_shared<ComponentLaser>();
 		auto laserRenderer = std::make_shared<ComponentRendererSprite>();
 		laserRenderer->sprite = _laserSprite;
+
 		gameObject->AddComponent(laserComponent);
 		gameObject->AddComponent(laserRenderer);
 

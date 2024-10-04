@@ -4,8 +4,8 @@
 
 namespace Asteroids {
 	class ComponentController : public MyEngine::Component {
-		const float RotSpeed = 50;
-		const float AccelerationAmount = 150.0f;
+		const float RotSpeed = 75;
+		const float AccelerationAmount = 200.0f;
 		const float MaxAcceleration = 50.0f;
 		const float DampingFactor = 0.95f;
 		const float MaxSpeed = 150.0f;

@@ -9,7 +9,7 @@
 namespace MyEngine {
 	// public API
 	GameObject::~GameObject() {
-		Logger::Log("Game object was destroyed");
+		Logger::Log("Game object was destroyed\n");
 		_components.clear();
 	}
 
@@ -23,12 +23,10 @@ namespace MyEngine {
 
 	void GameObject::Update(float deltaTime) {
 		for (auto& component : _components)
-			if(component)
-				component->Update(deltaTime);
+			component->Update(deltaTime);
 
 		for (auto& child : _children)
-			if (child)
-				child->Update(deltaTime);
+			child->Update(deltaTime);
 	}
 
 	void GameObject::Render(sre::SpriteBatch::SpriteBatchBuilder& spriteBatchBuilder) {
@@ -63,7 +61,7 @@ namespace MyEngine {
 
 	void GameObject::Destroy()
 	{
-		_parent.lock()->RemoveChild(_self.lock());
+		MyEngine::Engine::GetInstance()->QueueForDeletion(_self.lock(), _parent.lock());
 	}
 
 	std::string GameObject::GetName() {

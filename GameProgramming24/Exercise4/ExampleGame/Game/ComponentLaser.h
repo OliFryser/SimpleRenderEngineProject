@@ -3,6 +3,8 @@
 namespace Asteroids {
 	class ComponentLaser : public MyEngine::Component {
 		const float Velocity = 400.0f;
+		const float MaxLifeTime = 1.5f;
+
 		float _startTime;
 		glm::vec2 _direction;
 

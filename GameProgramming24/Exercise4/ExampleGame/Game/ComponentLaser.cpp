@@ -14,6 +14,8 @@ namespace Asteroids {
 			glm::vec2(
 				-glm::sin(glm::radians(parent->rotation)),
 				glm::cos(glm::radians(parent->rotation)));
+
+		parent->scale = { .75f, .75f };
 	}
 
 	void ComponentLaser::Update(float deltaTime)
@@ -22,7 +24,7 @@ namespace Asteroids {
 		float lifeTime = engine->GetTime() - _startTime;
 
 		auto parent = GetGameObject();
-		if (lifeTime >= 1.0f) {
+		if (lifeTime >= MaxLifeTime) {
 			parent->Destroy();
 			return;
 		}

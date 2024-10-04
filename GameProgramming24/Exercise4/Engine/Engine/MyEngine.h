@@ -12,6 +12,10 @@
 class GameObject;
 
 namespace MyEngine {
+	struct DeletionEntry {
+		std::shared_ptr<GameObject> parent, gameObject;
+	};
+
 	class Engine {
 	private:
 		static Engine* _instance;
@@ -22,6 +26,9 @@ namespace MyEngine {
 		const std::chrono::duration<double> MAX_FRAME_TIME = std::chrono::duration<double>(1 / 60.0);
 
 		Engine();
+
+		void QueueForDeletion(std::shared_ptr<GameObject>, std::shared_ptr<GameObject>);
+		void ClearDeletionQueue();
 
 		void Init();
 		void ProcessEvents(SDL_Event& event);
@@ -44,6 +51,8 @@ namespace MyEngine {
 
 		int frame;
 		float time;
+
+		std::list<std::shared_ptr<struct DeletionEntry>> _deletion_queue = {};
 
 		unsigned char input = -1;
 		bool b_show_debug_window = false;
