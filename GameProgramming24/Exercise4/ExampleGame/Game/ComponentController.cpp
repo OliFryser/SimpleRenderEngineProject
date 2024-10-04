@@ -130,6 +130,8 @@ namespace Asteroids {
 
 		gameObject->Init();
 
+		engine->CreateCircleCollider(gameObject, 20.0f);
+
 		_lastShotTime = engine->GetTime();
 	}
 
@@ -151,5 +153,11 @@ namespace Asteroids {
 			default:
 				break;
 		}
+	}
+
+	void ComponentController::OnCollision(MyEngine::GameObject* other)
+	{
+		if (other->GetName() == "Asteroid")
+			GetGameObject()->Destroy();
 	}
 }

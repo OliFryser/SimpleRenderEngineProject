@@ -51,7 +51,7 @@ void InitGame() {
 	std::string asteroids[]{ "meteorGrey_big2.png", "meteorGrey_med2.png", "meteorGrey_small2.png" };
 
 	for (int i = 0; i < 5; i++) {
-		auto asteroidGameObject = engine.CreateGameObject("Asteroid " + std::to_string(i));
+		auto asteroidGameObject = engine.CreateGameObject("Asteroid");
 		auto asteroid = std::make_shared< Asteroids::ComponentAsteroid>();
 		auto asteroidRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
 		asteroidGameObject->AddComponent(asteroid);

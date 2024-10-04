@@ -37,5 +37,6 @@ namespace Asteroids {
 		void Init() override;
 		void Update(float) override;
 		void KeyEvent(SDL_Event&) override;
+		void OnCollision(MyEngine::GameObject*) override;
 	};
 }

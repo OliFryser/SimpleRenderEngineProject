@@ -75,6 +75,7 @@ namespace MyEngine {
 
 			for each (auto collider in _colliders)
 			{
+				if (collider.expired()) continue;
 				auto sprite = _atlas->get("CollisionCircle100x100.png");
 				sprite.setPosition(collider.lock()->GetGameObject()->position);
 				sprite.setScale(glm::vec2{ collider.lock()->radius * 0.01f * 2.0f, collider.lock()->radius * 0.01f * 2.0f});
@@ -122,19 +123,21 @@ namespace MyEngine {
 	{
 		for each (auto first in _colliders)
 		{
+			if (first.expired()) continue;
 			auto firstObject = first.lock()->GetGameObject();
 
 			for each (auto second in _colliders)
 			{
+				if (second.expired()) continue;
 				auto secondObject = second.lock()->GetGameObject();
 				if (firstObject == secondObject)
 					continue;
 
 				float distance = glm::length(firstObject->position - secondObject->position);
 				if (distance < first.lock()->radius + second.lock()->radius) {
-					std::cout << "Collision detected between " << firstObject->GetName() << " and " << secondObject->GetName() << std::endl;
-					firstObject->OnCollision(second.lock());
-					secondObject->OnCollision(first.lock());
+					//std::cout << "Collision detected between " << firstObject->GetName() << " and " << secondObject->GetName() << std::endl;
+					firstObject->OnCollision(secondObject);
+					secondObject->OnCollision(firstObject);
 				}
 			}
 		}
