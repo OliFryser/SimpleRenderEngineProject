@@ -42,7 +42,7 @@ void InitGame() {
 	auto gameObject = engine.CreateGameObject("Player");
 	auto playerController = std::shared_ptr<Asteroids::ComponentController>(new Asteroids::ComponentController(atlas->get("laserRed04.png")));
 	auto playerRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
-	engine.CreateCircleCollider(gameObject, 75.0f);
+	engine.CreateCircleCollider(gameObject, 37.5f);
 	gameObject->AddComponent(playerController);
 	gameObject->AddComponent(playerRenderer);
 

@@ -22,7 +22,7 @@ namespace Asteroids {
 		parent->rotation = randomRotation;
 		parent->position = glm::vec2(randomX, randomY);
 
-		engine->CreateCircleCollider(parent, 100.0f);
+		engine->CreateCircleCollider(parent, 50.0f);
 	}
 
 	void ComponentAsteroid::Update(float deltaTime) {

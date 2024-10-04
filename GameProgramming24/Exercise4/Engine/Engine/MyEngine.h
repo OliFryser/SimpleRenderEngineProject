@@ -55,7 +55,7 @@ namespace MyEngine {
 
 	private:
 		std::shared_ptr<GameObject> _root;
-		std::list<std::shared_ptr<CircleCollider>> _colliders = {};
+		std::list<std::weak_ptr<CircleCollider>> _colliders = {};
 
 		std::shared_ptr<sre::SpriteAtlas> _atlas;
 

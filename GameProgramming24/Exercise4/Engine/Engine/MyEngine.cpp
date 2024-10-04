@@ -76,8 +76,8 @@ namespace MyEngine {
 			for each (auto collider in _colliders)
 			{
 				auto sprite = _atlas->get("CollisionCircle100x100.png");
-				sprite.setPosition(collider->GetGameObject()->position);
-				sprite.setScale(glm::vec2{ collider->radius * 0.01f, collider->radius * 0.01f });
+				sprite.setPosition(collider.lock()->GetGameObject()->position);
+				sprite.setScale(glm::vec2{ collider.lock()->radius * 0.01f * 2.0f, collider.lock()->radius * 0.01f * 2.0f});
 
 				spriteBatchBuilder.addSprite(sprite);
 			}
@@ -122,19 +122,19 @@ namespace MyEngine {
 	{
 		for each (auto first in _colliders)
 		{
-			auto firstObject = first->GetGameObject();
+			auto firstObject = first.lock()->GetGameObject();
 
 			for each (auto second in _colliders)
 			{
-				auto secondObject = second->GetGameObject();
+				auto secondObject = second.lock()->GetGameObject();
 				if (firstObject == secondObject)
 					continue;
 
 				float distance = glm::length(firstObject->position - secondObject->position);
-				if (distance < first->radius + second->radius) {
-					Logger::Log("Collision detected between %s and %s\n", firstObject->GetName(), secondObject->GetName());
-					firstObject->OnCollision(secondObject);
-					secondObject->OnCollision(firstObject);
+				if (distance < first.lock()->radius + second.lock()->radius) {
+					std::cout << "Collision detected between " << firstObject->GetName() << " and " << secondObject->GetName() << std::endl;
+					firstObject->OnCollision(second.lock());
+					secondObject->OnCollision(first.lock());
 				}
 			}
 		}

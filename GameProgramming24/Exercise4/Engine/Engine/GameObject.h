@@ -8,6 +8,7 @@
 
 namespace MyEngine {
 	class Component;
+	class CircleCollider;
 
 	class GameObject {
 		friend class Engine;
@@ -30,7 +31,7 @@ namespace MyEngine {
 		void RemoveChild(std::shared_ptr<GameObject>);
 		void Destroy();
 
-		void OnCollision(GameObject* other);
+		void OnCollision(std::shared_ptr<CircleCollider>);
 
 		std::string GetName();
 		void SetName(std::string);

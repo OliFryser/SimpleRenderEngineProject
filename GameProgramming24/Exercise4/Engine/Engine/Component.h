@@ -7,7 +7,7 @@
 #include "GameObject.h"
 
 namespace MyEngine {
-	class Engine;
+	class CircleCollider;
 
 	class Component {
 		friend class GameObject;
@@ -19,7 +19,7 @@ namespace MyEngine {
 		virtual void Update(float) {};
 		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&) {};
 		virtual void KeyEvent(SDL_Event&) {};
-		virtual void OnCollision(GameObject* other) {};
+		virtual void OnCollision(std::shared_ptr<CircleCollider>) {};
 		
 		GameObject* GetGameObject();
 
