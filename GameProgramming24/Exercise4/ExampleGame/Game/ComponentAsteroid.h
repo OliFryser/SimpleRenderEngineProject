@@ -8,5 +8,6 @@ namespace Asteroids {
 	public:
 		void Init() override;
 		void Update(float) override;
+
 	};
 }

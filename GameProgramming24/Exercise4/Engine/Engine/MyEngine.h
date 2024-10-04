@@ -6,6 +6,7 @@
 #include "sre/SpriteAtlas.hpp"
 #include "SDL.h"
 
+#include "CircleCollider.h"
 #include "GameObject.h"
 
 
@@ -14,6 +15,10 @@ class GameObject;
 namespace MyEngine {
 	struct DeletionEntry {
 		std::shared_ptr<GameObject> parent, gameObject;
+	};
+
+	struct Line {
+		glm::vec3 first, last;
 	};
 
 	class Engine {
@@ -46,8 +51,13 @@ namespace MyEngine {
 		GameObject* CreateGameObject(std::string name);
 		GameObject* CreateGameObjectWithParent(std::string name, GameObject* parent);
 
+		void CreateCircleCollider(GameObject* gameObject, float radius);
+
 	private:
 		std::shared_ptr<GameObject> _root;
+		std::list<std::shared_ptr<CircleCollider>> _colliders = {};
+
+		std::shared_ptr<sre::SpriteAtlas> _atlas;
 
 		int frame;
 		float time;
@@ -58,5 +68,7 @@ namespace MyEngine {
 		bool b_show_debug_window = false;
 
 		sre::Camera _camera;
+
+		void CheckCollisions();
 	};
 }

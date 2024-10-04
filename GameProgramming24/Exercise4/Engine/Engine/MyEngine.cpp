@@ -2,6 +2,7 @@
 
 #include <random>
 
+#include "Logger.h"
 #include "sre/RenderPass.hpp"
 
 namespace MyEngine {
@@ -34,6 +35,7 @@ namespace MyEngine {
 		// initializes random generator
 		std::srand(std::time(nullptr));
 
+		_atlas = sre::SpriteAtlas::create("data/debug.json", "data/debug.png");
 		_camera.setWindowCoordinates();
 
 		_root->Init();
@@ -41,12 +43,21 @@ namespace MyEngine {
 
 	void Engine::ProcessEvents(SDL_Event& event) {
 		_root->KeyEvent(event);
+
+		if (event.key.keysym.sym == SDLK_0)
+		{
+			if (event.type == SDL_KEYUP)
+				b_show_debug_window = !b_show_debug_window;
+		}
+			
 	}
 
 	void Engine::Update(float deltaTime) {
 		++frame;
 		time += deltaTime;
 		_root->Update(deltaTime);
+
+		CheckCollisions();
 	}
 
 	void Engine::Render()
@@ -55,10 +66,22 @@ namespace MyEngine {
 			.withCamera(_camera)
 			.withClearColor(true, { .1, .1, .2, 1 })
 			.build();
-
+		
 		sre::SpriteBatch::SpriteBatchBuilder spriteBatchBuilder = sre::SpriteBatch::create();
 
 		_root->Render(spriteBatchBuilder);
+
+		if (b_show_debug_window) {
+
+			for each (auto collider in _colliders)
+			{
+				auto sprite = _atlas->get("CollisionCircle100x100.png");
+				sprite.setPosition(collider->GetGameObject()->position);
+				sprite.setScale(glm::vec2{ collider->radius * 0.01f, collider->radius * 0.01f });
+
+				spriteBatchBuilder.addSprite(sprite);
+			}
+		}
 
 		auto spriteBatch = spriteBatchBuilder.build();
 		renderPass.draw(spriteBatch);
@@ -84,6 +107,37 @@ namespace MyEngine {
 		parent->AddChild(ret);
 
 		return ret.get();
+	}
+
+	void Engine::CreateCircleCollider(GameObject* gameObject, float radius)
+	{
+		auto collider = std::make_shared<CircleCollider>();
+		collider->radius = radius;
+		_colliders.push_back(collider);
+		gameObject->AddComponent(collider);
+		collider->Init();
+	}
+
+	void Engine::CheckCollisions()
+	{
+		for each (auto first in _colliders)
+		{
+			auto firstObject = first->GetGameObject();
+
+			for each (auto second in _colliders)
+			{
+				auto secondObject = second->GetGameObject();
+				if (firstObject == secondObject)
+					continue;
+
+				float distance = glm::length(firstObject->position - secondObject->position);
+				if (distance < first->radius + second->radius) {
+					Logger::Log("Collision detected between %s and %s\n", firstObject->GetName(), secondObject->GetName());
+					firstObject->OnCollision(secondObject);
+					secondObject->OnCollision(firstObject);
+				}
+			}
+		}
 	}
 
 	void Engine::ClearDeletionQueue()

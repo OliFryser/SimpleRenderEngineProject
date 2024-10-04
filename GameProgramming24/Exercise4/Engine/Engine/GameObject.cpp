@@ -64,6 +64,12 @@ namespace MyEngine {
 		MyEngine::Engine::GetInstance()->QueueForDeletion(_self.lock(), _parent.lock());
 	}
 
+	void GameObject::OnCollision(GameObject* other)
+	{
+		for (auto& component : _components)
+			component->OnCollision(other);
+	}
+
 	std::string GameObject::GetName() {
 		return _name;
 	}

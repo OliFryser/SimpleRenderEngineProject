@@ -30,6 +30,8 @@ namespace MyEngine {
 		void RemoveChild(std::shared_ptr<GameObject>);
 		void Destroy();
 
+		void OnCollision(GameObject* other);
+
 		std::string GetName();
 		void SetName(std::string);
 		

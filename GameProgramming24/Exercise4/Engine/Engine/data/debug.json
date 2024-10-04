@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "CollisionCircle100x100.png",
+	"frame": {"x":0,"y":0,"w":100,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+	"sourceSize": {"w":100,"h":100}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "debug.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:628f4ac864f22141a18882c2da014b45:068b096e886928eec190d41578737439:35e7e7dd993979f7cd2b9a57d451f535$"
+}
+}

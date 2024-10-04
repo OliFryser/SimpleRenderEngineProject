@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Engine/MyEngine.h"
+#include "Utils.h"
 
 namespace Asteroids {
 	void ComponentAsteroid::Init() {
@@ -21,13 +22,16 @@ namespace Asteroids {
 		parent->rotation = randomRotation;
 		parent->position = glm::vec2(randomX, randomY);
 
-		std::cout << "Position of " << parent->GetName() << ": x=" << parent->position.x << " y=" << parent->position.y << std::endl;
+		engine->CreateCircleCollider(parent, 100.0f);
 	}
 
 	void ComponentAsteroid::Update(float deltaTime) {
 		auto parent = GetGameObject();
+		auto engine = MyEngine::Engine::GetInstance();
 
 		parent->position += _velocity * deltaTime;
 		parent->rotation += _rotationAmount * deltaTime;
+
+		HandleBounds(parent, engine);
 	}
 }

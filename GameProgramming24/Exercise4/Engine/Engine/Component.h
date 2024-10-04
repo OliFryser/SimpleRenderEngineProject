@@ -19,9 +19,8 @@ namespace MyEngine {
 		virtual void Update(float) {};
 		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&) {};
 		virtual void KeyEvent(SDL_Event&) {};
-
-		// interface used by gameplay components
-	protected:
+		virtual void OnCollision(GameObject* other) {};
+		
 		GameObject* GetGameObject();
 
 	private:

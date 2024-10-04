@@ -5,6 +5,7 @@
 #include "Engine/MyEngine.h"
 #include "ComponentLaser.h"
 #include "ComponentRendererSprite.h"
+#include "Utils.h"
 
 namespace Asteroids {
 	ComponentController::ComponentController(sre::Sprite laserSprite) {
@@ -77,7 +78,6 @@ namespace Asteroids {
 				if (_acceleration > 0) {
 					float easedAccelerationFactor = EaseOut(normalizedAcceleration);
 					_acceleration += easedAccelerationFactor * currentAccelerationAmount;
-					std::cout << "EasedAcceleration: " << easedAccelerationFactor << ", _acceleration: " << _acceleration << std::endl;
 				}
 				else {
 					// initial acceleration should not be eased
@@ -109,23 +109,6 @@ namespace Asteroids {
 	float ComponentController::EaseOut(float t) const
 	{
 		return 1.0f - pow(1.0f - t, EasingFactor);
-	}
-
-	void ComponentController::HandleBounds(MyEngine::GameObject* parent, MyEngine::Engine* engine) {
-		auto screenSize = engine->GetScreenSize();
-
-		if (parent->position.x < 0) {
-			parent->position.x = screenSize.x;
-		}
-		else if (parent->position.x > screenSize.x) {
-			parent->position.x = 0;
-		}
-		if (parent->position.y < 0) {
-			parent->position.y = screenSize.y;
-		}
-		else if (parent->position.y > screenSize.y) {
-			parent->position.y = 0;
-		}
 	}
 
 	void ComponentController::Shoot(MyEngine::GameObject* parent, MyEngine::Engine* engine) 

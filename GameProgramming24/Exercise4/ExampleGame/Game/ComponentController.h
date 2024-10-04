@@ -28,7 +28,6 @@ namespace Asteroids {
 		void HandleMove(MyEngine::GameObject* parent, float deltaTime);
 		float EaseOut(float t) const;
 		void HandleRotate(MyEngine::GameObject* parent, float deltaTime) const;
-		void HandleBounds(MyEngine::GameObject*, MyEngine::Engine*);
 		void Shoot(MyEngine::GameObject*, MyEngine::Engine*);
 	
 	public:
