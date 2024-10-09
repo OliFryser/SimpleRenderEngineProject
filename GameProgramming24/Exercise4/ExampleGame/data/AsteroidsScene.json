@@ -1,0 +1,43 @@
+{
+  "root": {
+    "transform": [
+      [ 0, 0 ],
+      0,
+      [ 1, 1 ]
+    ],
+    "components": [],
+    "children": [
+      {
+        "Player": {
+          "transform": [
+            [ 0, 0 ],
+            0,
+            [ 0.75, 0.75 ]
+          ],
+          "components": [
+            {
+              "typeId": "CONTROLLER",
+              "serializedData": {
+
+              }
+            },
+            {
+              "typeId": "CIRCLE_COLLIDER",
+              "serializedData": {
+                "Radius": 0.75
+              }
+            },
+            {
+              "typeId": "RENDERER_SPRITE",
+              "serializedData": {
+                "SpriteAtlas": "data/asteroids.json",
+                "Sprite": "playerShip2_red.png"
+              }
+            }
+          ],
+          "children": []
+        }
+      }
+    ]
+  }
+}
