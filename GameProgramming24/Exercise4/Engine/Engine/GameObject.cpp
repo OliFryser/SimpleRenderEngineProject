@@ -9,7 +9,6 @@
 namespace MyEngine {
 	// public API
 	GameObject::~GameObject() {
-		Logger::Log("Game object was destroyed\n");
 		_components.clear();
 	}
 

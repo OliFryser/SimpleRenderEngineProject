@@ -16,7 +16,6 @@ namespace Asteroids {
 	void ComponentSmallAsteroid::OnCollision(MyEngine::GameObject* other)
 	{
 		if (other->GetName() == "Laser") {
-			std::cout << "HIT BY LASER" << std::endl;
 			other->Destroy();
 			GetGameObject()->Destroy();
 		}

@@ -135,7 +135,6 @@ namespace MyEngine {
 
 				float distance = glm::length(firstObject->position - secondObject->position);
 				if (distance < first.lock()->radius + second.lock()->radius) {
-					//std::cout << "Collision detected between " << firstObject->GetName() << " and " << secondObject->GetName() << std::endl;
 					firstObject->OnCollision(secondObject);
 				}
 			}
