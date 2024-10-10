@@ -4,13 +4,13 @@
 
 namespace Asteroids {
 	class ComponentController : public MyEngine::Component {
-		const float RotSpeed = 75;
-		const float AccelerationAmount = 200.0f;
-		const float MaxAcceleration = 50.0f;
-		const float DampingFactor = 0.95f;
-		const float MaxSpeed = 150.0f;
-		const float ShotInterval = 0.5f;
-		const float EasingFactor = 2.0f;
+		float RotSpeed;
+		float AccelerationAmount;
+		float MaxAcceleration;
+		float DampingFactor;
+		float MaxSpeed;
+		float ShotInterval;
+		float EasingFactor;
 
 		bool _forward;
 		bool _left;
@@ -32,8 +32,9 @@ namespace Asteroids {
 	
 	public:
 
-		ComponentController(sre::Sprite laserSprite);
+		ComponentController();
 
+		void Initialize(picojson::value&) override;
 		void Init() override;
 		void Update(float) override;
 		void KeyEvent(SDL_Event&) override;

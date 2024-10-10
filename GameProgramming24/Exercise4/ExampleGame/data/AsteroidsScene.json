@@ -18,7 +18,13 @@
             {
               "typeId": "CONTROLLER",
               "serializedData": {
-
+                "RotSpeed": 75.0,
+                "AccelerationAmount": 200.0,
+                "MaxAcceleration": 50.0,
+                "DampingFactor": 0.95,
+                "MaxSpeed": 150.0,
+                "ShotInterval": 0.5,
+                "EasingFactor": 2.0
               }
             },
             {
@@ -30,7 +36,8 @@
             {
               "typeId": "RENDERER_SPRITE",
               "serializedData": {
-                "SpriteAtlas": "data/asteroids.json",
+                "SpriteAtlasJSON": "data/asteroids.json",
+                "SpriteAtlasImg": "data/asteroids.png",
                 "Sprite": "playerShip2_red.png"
               }
             }

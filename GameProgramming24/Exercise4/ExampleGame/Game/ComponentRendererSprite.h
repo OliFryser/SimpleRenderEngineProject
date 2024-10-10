@@ -11,5 +11,6 @@ namespace Asteroids {
 		sre::Sprite sprite;
 
 		void Render(sre::SpriteBatch::SpriteBatchBuilder&) override;
+		void Initialize(picojson::value&) override;
 	};
 }

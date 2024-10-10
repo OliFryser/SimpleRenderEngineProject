@@ -8,18 +8,27 @@
 #include "Utils.h"
 
 namespace Asteroids {
-	ComponentController::ComponentController(sre::Sprite laserSprite) {
-		_laserSprite = laserSprite;
+	ComponentController::ComponentController() {
 		_shoot = false;
 		_forward = false;
 		_left = false;
 		_right = false;
-
-		// initialize the variables in contstructor
+		_laserSprite = Utils::GetInstance()->Atlas->get("laserRed04.png");
 		_acceleration = 0;
 		_velocity = 0;
 		_lastShotTime = 0;
 		_rotation = 0;
+	}
+
+	void ComponentController::Initialize(picojson::value& serializedData)
+	{
+		RotSpeed = serializedData.get("RotSpeed").get<double>();
+		AccelerationAmount = serializedData.get("AccelerationAmount").get<double>();
+		MaxAcceleration = serializedData.get("MaxAcceleration").get<double>();
+		DampingFactor = serializedData.get("DampingFactor").get<double>();
+		MaxSpeed = serializedData.get("MaxSpeed").get<double>();
+		ShotInterval = serializedData.get("ShotInterval").get<double>();
+		EasingFactor = serializedData.get("EasingFactor").get<double>();
 	}
 
 	void ComponentController::Init()

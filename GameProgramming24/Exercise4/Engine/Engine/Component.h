@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "sre/RenderPass.hpp"
+#include "picojson.h"
 
 #include "GameObject.h"
 
@@ -12,9 +13,8 @@ namespace MyEngine {
 	class Component {
 		friend class GameObject;
 
-	private:
-
 	public:
+		virtual void Initialize(picojson::value&) {};
 		virtual void Init() {};
 		virtual void Update(float) {};
 		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&) {};

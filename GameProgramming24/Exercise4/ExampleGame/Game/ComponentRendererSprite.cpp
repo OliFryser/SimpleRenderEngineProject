@@ -9,4 +9,14 @@ namespace Asteroids {
 		sprite.setScale(parent->scale);
 		builder.addSprite(sprite);
 	}
+
+	void ComponentRendererSprite::Initialize(picojson::value& serializedData)
+	{
+		auto atlas =
+			sre::SpriteAtlas::create(
+				serializedData.get("SpriteAtlasJSON").get<std::string>(),
+				serializedData.get("SpriteAtlasImg").get<std::string>());
+
+		sprite = atlas->get(serializedData.get("Sprite").get<std::string>());
+	}
 }

@@ -1,12 +1,15 @@
 #include "sre/SDLRenderer.hpp"
 #include "sre/SpriteAtlas.hpp"
 
+#include "SceneGraphParser.h"
+
 #include "Engine/MyEngine.h"
 
 #include "Game/ComponentController.h"
 #include "Game/ComponentRendererSprite.h"
 #include "Game/ComponentLargeAsteroid.h"
 
+int main();
 void InitGame();
 void ProcessEvents(SDL_Event& event);
 void Update(float deltaTime);
@@ -29,7 +32,8 @@ int main() {
 	renderer.init();
 	camera.setWindowCoordinates();
 
-	InitGame();
+	SceneGraphParser::InitGameFromSceneGraph("data/AsteroidsScene.json");
+	//InitGame();
 
 	engine.Init();
 
@@ -40,7 +44,7 @@ void InitGame() {
 	atlas = sre::SpriteAtlas::create("data/asteroids.json", "data/asteroids.png");
 
 	auto gameObject = engine.CreateGameObject("Player");
-	auto playerController = std::shared_ptr<Asteroids::ComponentController>(new Asteroids::ComponentController(atlas->get("laserRed04.png")));
+	auto playerController = std::make_shared<Asteroids::ComponentController>();
 	auto playerRenderer = std::make_shared<Asteroids::ComponentRendererSprite>();
 	engine.CreateCircleCollider(gameObject, 37.5f);
 	gameObject->AddComponent(playerController);

@@ -3,6 +3,7 @@
 #include "Logger.h"
 
 namespace MyEngine {
+
 	GameObject* Component::GetGameObject() {
 		if (_gameObject.expired())
 		{
