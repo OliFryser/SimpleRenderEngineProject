@@ -130,4 +130,5 @@ mark_as_advanced(
 )
 
 # add this here
-add_subdirectory(GameProgramming24/Exercise4)
+# add_subdirectory(GameProgramming24/Exercise4)
+add_subdirectory(GameProgramming24/Exercise6)

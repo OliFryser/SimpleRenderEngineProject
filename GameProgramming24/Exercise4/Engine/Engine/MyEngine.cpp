@@ -35,7 +35,7 @@ namespace MyEngine {
 		// initializes random generator
 		std::srand(std::time(nullptr));
 
-		_atlas = sre::SpriteAtlas::create("data/debug.json", "data/debug.png");
+		//_atlas = sre::SpriteAtlas::create("data/debug.json", "data/debug.png");
 		_camera.setWindowCoordinates();
 
 		_root->Init();
