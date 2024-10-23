@@ -40,10 +40,11 @@ private:
 		glm::vec4(min.x, max.y, 0, 0), 
 		glm::vec4(max.x, max.y, 0, 0),
 		glm::vec4(max.x, min.y, 0, 0),
-		glm::vec4(min.x, min.y, 0, 0),
-		glm::vec4(min.x, max.y, 0, 0),
+		
+		glm::vec4(max.x, min.y, 0, 0),
 		glm::vec4(max.x, max.y, 0, 0),
-		glm::vec4(max.x, min.y, 0, 0)
+		glm::vec4(min.x, max.y, 0, 0),
+		glm::vec4(min.x, min.y, 0, 0),
 	};
 	
 	const std::vector<uint16_t> idxs = 
