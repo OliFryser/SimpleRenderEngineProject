@@ -106,6 +106,11 @@ namespace MyEngine {
 		return _transform[3];
 	}
 
+	glm::vec3 GameObject::GetForwardVector()
+	{
+		return -glm::normalize(_transform[2]);
+	}
+
 	glm::quat GameObject::GetRotation() {
 		const glm::vec3 scale = GetScale();
 		return glm::quat_cast(glm::mat3(

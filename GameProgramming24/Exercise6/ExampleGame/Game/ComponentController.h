@@ -11,4 +11,8 @@ class ComponentController : public MyEngine::Component {
 private:
 	float mov_speed;
 	float rot_speed;
+
+	bool _forward, _backward, _left, _right;
+
+	void Rotate(float rotateSpeed, float deltaTime, glm::mat4& transform);
 };

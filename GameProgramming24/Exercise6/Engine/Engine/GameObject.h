@@ -50,6 +50,7 @@ namespace MyEngine {
 		// (it would be a good idea to move this to its own class, so that the GameObject doesn't need to import all the extra glm classes)
 		glm::mat4 GetTransform();
 		glm::vec3 GetPosition();
+		glm::vec3 GetForwardVector();
 		glm::quat GetRotation();
 		glm::vec3 GetEulerAngles();
 		glm::vec3 GetScale();
