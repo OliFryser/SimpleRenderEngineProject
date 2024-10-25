@@ -8,7 +8,7 @@ void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
     int index = serializedData["textureIndex"].GetInt();
     glm::vec2 indices = IndexToVec(index);
 
-    std::cout << "Index: " << index << ", x: " << indices.x << ", y: " << indices.y << std::endl;
+    //std::cout << "Index: " << index << ", x: " << indices.x << ", y: " << indices.y << std::endl;
 
     const glm::vec2 min = glm::vec2(indices.x * tileSizeWithBorder.x, indices.y * tileSizeWithBorder.y) / textureSize;
     const glm::vec2 max = min + tileSize / textureSize;
@@ -44,8 +44,8 @@ void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
 
 void ComponentRendererMesh::Update(float deltaTime) {
     //// uncomment this block to rotate the mesh (useful to see all sides of the cube you are creating, for instance)
-    /*
-    MyEngine::GameObject* gameObject = GetGameObject();
+    
+    /*MyEngine::GameObject* gameObject = GetGameObject();
     assert(gameObject);
     
     glm::mat4 transform = gameObject->GetTransform();

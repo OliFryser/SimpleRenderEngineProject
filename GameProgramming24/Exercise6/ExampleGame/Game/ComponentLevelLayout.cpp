@@ -15,24 +15,18 @@ void ComponentLevelLayout::Init(rapidjson::Value& serializedData)
 	assert(dimY > 0);
 
 	auto& levelValue = serializedData["level"];
-
-	std::vector<int> level{ };
 	
 	assert(levelValue.IsArray() && levelValue.Size() == dimY);
 
-	for (int j = 0; j < dimY; j++)
+	for (int j = 0; j < levelValue.Size(); j++)
 	{
-		for (int i = 0; i < dimX; i++)
+		for (int i = 0; i < levelValue[j].Size(); i++)
 		{
 			int element = levelValue[j][i].GetInt();
-			level.push_back(element);
-
 			CreateCube(element, i, j);
 		}
 	}
-	PrintLevel(level);
-	
-	
+	//PrintLevel(level);
 }
 
 void ComponentLevelLayout::PrintLevel(std::vector<int>& level)
@@ -60,11 +54,11 @@ void ComponentLevelLayout::CreateCube(int textureIndex, int x, int y)
 	rapidjson::Value value(rapidjson::kObjectType);
 	value.AddMember("textureIndex", textureIndex, document.GetAllocator());
 	auto meshRenderer = std::make_shared<ComponentRendererMesh>();
+	meshRenderer->Init(value);
 
 	auto gameObject = engine->CreateGameObject("cube" + std::to_string(x) + std::to_string(y));
 	gameObject.lock().get()->SetPosition(position);
 	gameObject.lock().get()->AddComponent(meshRenderer);
-	meshRenderer->Init(value);
 
 	std::cout
 		<< "Created " << gameObject.lock().get()->GetName()

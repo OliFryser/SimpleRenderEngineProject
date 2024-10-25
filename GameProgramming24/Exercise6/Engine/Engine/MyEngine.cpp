@@ -67,7 +67,7 @@ namespace MyEngine {
 	{
 		sre::RenderPass renderPass = sre::RenderPass::create()
 			.withCamera(_camera)
-			.withClearColor(true, { .3f, .3f, 1, 1 })
+			.withClearColor(true, { .7f, .7f, .7f, 1 })
 			.build();
 
 		_root->Render(renderPass);

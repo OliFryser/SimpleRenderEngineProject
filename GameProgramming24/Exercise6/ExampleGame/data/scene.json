@@ -34,23 +34,6 @@
 				"children": []
 			},
 			{
-				"name": "cube0",
-				"transform": {
-					"position": [ 0, 0, 0 ],
-					"rotation": [ 0, 0, 0 ],
-					"scale": [ 1, 1, 1 ]
-				},
-				"components": [
-					{
-						"typeId": "CUBE_RENDERER",
-						"serializedData": {
-							"textureIndex":  50
-						}
-					}
-				],
-				"children": []
-			},
-			{
 				"name": "levelLayout",
 				"transform": {
 					"position": [ 0, 0, 0 ],
@@ -66,7 +49,7 @@
 							"level": [
 								[ 1, 1, -1 ],
 								[ 0, -1, -1 ],
-								[ 50, -1 , -1],
+								[ 50, -1, -1],
 								[ 12, 1, -1]
 							]
 						}
