@@ -76,18 +76,9 @@ public:
 
         atlas = SpriteAtlas::createSingleSprite(Texture::getWhiteTexture());        // Create white test sprite
 
-        b2BodyDef myBodyDef;                                                        // Setup phys
-        myBodyDef.type = b2_staticBody; //this will be a static body (does not move)
-        myBodyDef.position.Set(0, 0); //set the starting position
-        auto m_groundBody = m_world.CreateBody(&myBodyDef);
+        AddStaticBody(0, 0, 0, 10000, 10);
 
-        b2PolygonShape boxShape;
-        boxShape.SetAsBox(10000,10);
-
-        b2FixtureDef boxFixtureDef;
-        boxFixtureDef.shape = &boxShape;
-        boxFixtureDef.density = 1;
-        m_groundBody->CreateFixture(&boxFixtureDef);
+        AddStaticBody(100, 100, 45, 50, 50);
 
         r.frameUpdate = [&](float deltaTime){                                       // Update physics simulation before rendering
             float fixedDeltaTime = 0.016f;
@@ -107,6 +98,23 @@ public:
         spawnBox(500, 500, 45);
 
         r.startEventLoop();
+    }
+
+    void AddStaticBody(int posX, int posY, float rotation, int scalX, int scalY)
+    {
+        b2BodyDef myBodyDef;                                                        // Setup phys
+        myBodyDef.type = b2_staticBody; //this will be a static body (does not move)
+        myBodyDef.position.Set(posX, posY); //set the starting position
+        myBodyDef.angle = glm::radians(rotation);
+        auto m_groundBody = m_world.CreateBody(&myBodyDef);
+
+        b2PolygonShape boxShape;
+        boxShape.SetAsBox(scalX, scalY);
+
+        b2FixtureDef boxFixtureDef;
+        boxFixtureDef.shape = &boxShape;
+        boxFixtureDef.density = 1;
+        m_groundBody->CreateFixture(&boxFixtureDef);
     }
 
     void render(){

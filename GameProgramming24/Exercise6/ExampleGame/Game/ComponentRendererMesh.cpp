@@ -4,10 +4,11 @@
 
 void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
 	_mesh = sre::Mesh::create()
-        .withPositions(positions)
+        .withPositions(positions[0])
         .withUVs(uvs)
-        .withIndices(idxs, sre::MeshTopology::Triangles, 0)
+        .withIndices(idxs[0], sre::MeshTopology::Triangles, 0)
         .build();
+
     _material = sre::Shader::getUnlit()->createMaterial();
 
     // we are hardcoding the texture that we want to use here and some if its metadata.

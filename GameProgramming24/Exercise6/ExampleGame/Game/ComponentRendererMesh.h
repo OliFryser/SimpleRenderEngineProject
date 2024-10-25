@@ -19,19 +19,26 @@ private:
 	const glm::vec2 tileSize = glm::vec2(64, 64);
 	const glm::vec2 tileSizeWithBorder = glm::vec2(65, 65);
 
-	const glm::vec2 min = glm::vec2(0, 6 * tileSizeWithBorder.y) / textureSize;
+	const glm::vec2 min = glm::vec2(0 * tileSizeWithBorder.x, 6 * tileSizeWithBorder.y) / textureSize;
 	const glm::vec2 max = min + tileSize / textureSize;
 
-	const std::vector<glm::vec3> positions = 
+	const std::vector<glm::vec3> positions[4] =
 	{ 
-		glm::vec3(-.5, -.5, .5), 
-		glm::vec3(-.5, .5, .5), 
-		glm::vec3(.5, .5, .5), 
-		glm::vec3(.5, -.5, .5), 
-		glm::vec3(-.5, -.5, -.5), 
-		glm::vec3(-.5, .5, -.5), 
-		glm::vec3(.5, .5, -.5), 
-		glm::vec3(.5, -.5, -.5) 
+		// front
+		{
+			glm::vec3(-.5, -.5, .5),
+			glm::vec3(-.5, .5, .5),
+			glm::vec3(.5, .5, .5),
+			glm::vec3(.5, -.5, .5),
+		},
+		// back
+		{
+			glm::vec3(-.5, -.5, -.5),
+			glm::vec3(-.5, .5, -.5),
+			glm::vec3(.5, .5, -.5),
+			glm::vec3(.5, -.5, -.5)
+		},
+		 
 	};
 	
 	const std::vector<glm::vec4> uvs = 
@@ -47,20 +54,27 @@ private:
 		glm::vec4(min.x, min.y, 0, 0),
 	};
 	
-	const std::vector<uint16_t> idxs = 
+	const std::vector<uint16_t> idxs[4] =
 	{ 
 		// front face
-		3, 1, 0, 
-		3, 2, 1,
+		{
+			3, 1, 0,
+			3, 2, 1,
+		},
 		// right face
-		2, 3, 7,
-		7, 6, 2,
+		{
+			2, 3, 7,
+			7, 6, 2,
+		},
 		// back face
-		7, 5, 6,
-		7, 4, 5,
+		{
+			7, 5, 6,
+			7, 4, 5,
+		},
 		// left face
-		4, 0, 5,
-		0, 1, 5
-
+		{
+			4, 0, 5,
+			0, 1, 5
+		}
 	};
 };
