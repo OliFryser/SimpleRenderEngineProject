@@ -9,6 +9,8 @@ public:
 	void Render(sre::RenderPass& renderPass) override;
 
 private:
+	bool _initialized;
+
 	static const int MESH_COUNT = 4;
 
 	std::shared_ptr<sre::Mesh> _meshes[MESH_COUNT];

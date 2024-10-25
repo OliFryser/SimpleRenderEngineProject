@@ -3,8 +3,11 @@
 #include "glm/gtx/transform.hpp"
 
 void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
+    if (_initialized) return;
+
     int index = serializedData["textureIndex"].GetInt();
     glm::vec2 indices = IndexToVec(index);
+
     std::cout << "Index: " << index << ", x: " << indices.x << ", y: " << indices.y << std::endl;
 
     const glm::vec2 min = glm::vec2(indices.x * tileSizeWithBorder.x, indices.y * tileSizeWithBorder.y) / textureSize;
@@ -35,6 +38,8 @@ void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
         .withFilterSampling(false)
         .build();
     _material->setTexture(_texture);
+
+    _initialized = true;
 }
 
 void ComponentRendererMesh::Update(float deltaTime) {

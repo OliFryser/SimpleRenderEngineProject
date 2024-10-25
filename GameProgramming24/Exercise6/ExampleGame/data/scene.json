@@ -44,7 +44,31 @@
 					{
 						"typeId": "CUBE_RENDERER",
 						"serializedData": {
-							"textureIndex": 50
+							"textureIndex":  50
+						}
+					}
+				],
+				"children": []
+			},
+			{
+				"name": "levelLayout",
+				"transform": {
+					"position": [ 0, 0, 0 ],
+					"rotation": [ 0, 0, 0 ],
+					"scale": [ 1, 1, 1 ]
+				},
+				"components": [
+					{
+						"typeId": "LEVEL_LAYOUT",
+						"serializedData": {
+							"dimX": 3,
+							"dimY": 4,
+							"level": [
+								[ 1, 1, -1 ],
+								[ 0, -1, -1 ],
+								[ 50, -1 , -1],
+								[ 12, 1, -1]
+							]
 						}
 					}
 				],
