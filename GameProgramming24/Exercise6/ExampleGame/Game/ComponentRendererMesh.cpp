@@ -39,9 +39,18 @@ void ComponentRendererMesh::Render(sre::RenderPass& renderPass) {
     MyEngine::GameObject* gameObject = GetGameObject();
     assert(gameObject);
 
-    renderPass.draw(_mesh, gameObject->GetTransform(), _material);
-    static auto cube = sre::Mesh::create().withCube(0.5f).build();
-    static std::vector<std::shared_ptr<sre::Material> > materials = {
+    glm::mat4 parentTransform = gameObject->GetTransform();
+    glm::vec3 axis = glm::vec3(0, 1, 0);
+    constexpr float angle = glm::radians(90.0f);
+    glm::mat4 rotation = glm::rotate(angle, axis);
+
+    renderPass.draw(_mesh, parentTransform, _material);
+    renderPass.draw(_mesh, parentTransform * rotation, _material);
+    renderPass.draw(_mesh, parentTransform * rotation * rotation, _material);
+    renderPass.draw(_mesh, parentTransform * rotation * rotation * rotation, _material);
+
+    /*static auto cube = sre::Mesh::create().withCube(0.5f).build();*/
+    /*static std::vector<std::shared_ptr<sre::Material> > materials = {
             sre::Shader::getUnlit()->createMaterial(),
             sre::Shader::getUnlit()->createMaterial(),
             sre::Shader::getUnlit()->createMaterial()
@@ -60,5 +69,5 @@ void ComponentRendererMesh::Render(sre::RenderPass& renderPass) {
     for (int i = 0; i < positions.size(); i++) {
         materials[i]->setColor(colors[i]);
         renderPass.draw(cube, glm::translate(positions[i]), materials[i]);
-    }
+    }*/
 }
