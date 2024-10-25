@@ -3,7 +3,20 @@
 #include "glm/gtx/transform.hpp"
 
 void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
-	
+    int index = serializedData["textureIndex"].GetInt();
+    glm::vec2 indices = IndexToVec(index);
+    std::cout << "Index: " << index << ", x: " << indices.x << ", y: " << indices.y << std::endl;
+
+    const glm::vec2 min = glm::vec2(indices.x * tileSizeWithBorder.x, indices.y * tileSizeWithBorder.y) / textureSize;
+    const glm::vec2 max = min + tileSize / textureSize;
+
+    const std::vector<glm::vec4> uvs = {
+        glm::vec4(min.x, min.y, 0, 0),
+        glm::vec4(min.x, max.y, 0, 0),
+        glm::vec4(max.x, max.y, 0, 0),
+        glm::vec4(max.x, min.y, 0, 0),
+    };
+
     for (int i = 0; i < MESH_COUNT; i++) 
     {
         _meshes[i] = sre::Mesh::create()
@@ -49,5 +62,4 @@ void ComponentRendererMesh::Render(sre::RenderPass& renderPass) {
     {
         renderPass.draw(_meshes[i], parentTransform, _material);
     }
-    
 }

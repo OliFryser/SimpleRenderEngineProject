@@ -21,8 +21,7 @@ private:
 	const glm::vec2 tileSize = glm::vec2(64, 64);
 	const glm::vec2 tileSizeWithBorder = glm::vec2(65, 65);
 
-	const glm::vec2 min = glm::vec2(0 * tileSizeWithBorder.x, 6 * tileSizeWithBorder.y) / textureSize;
-	const glm::vec2 max = min + tileSize / textureSize;
+	const glm::vec2 textureDim = glm::vec2((textureSize.x + 1) / tileSizeWithBorder.x, (textureSize.y + 1) / tileSizeWithBorder.y);
 
 	/*
 	  5------6
@@ -66,17 +65,16 @@ private:
 		},
 	};
 	
-	const std::vector<glm::vec4> uvs = 
-	{ 
-		glm::vec4(min.x, min.y, 0, 0), 
-		glm::vec4(min.x, max.y, 0, 0), 
-		glm::vec4(max.x, max.y, 0, 0),
-		glm::vec4(max.x, min.y, 0, 0),
-	};
+	
 	
 	const std::vector<uint16_t> idxs =
 	{ 
 		3, 1, 0,
 		3, 2, 1,
 	};
+
+	inline glm::vec2 IndexToVec(int index) 
+	{
+		return glm::vec2(fmodf(index, textureDim.x), floorf(index / textureDim.x));
+	}
 };

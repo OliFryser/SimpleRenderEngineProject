@@ -43,7 +43,9 @@
 				"components": [
 					{
 						"typeId": "CUBE_RENDERER",
-						"serializedData": {}
+						"serializedData": {
+							"textureIndex": 50
+						}
 					}
 				],
 				"children": []
