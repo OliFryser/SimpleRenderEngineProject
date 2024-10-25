@@ -9,7 +9,9 @@ public:
 	void Render(sre::RenderPass& renderPass) override;
 
 private:
-	std::shared_ptr<sre::Mesh> _mesh;
+	static const int MESH_COUNT = 4;
+
+	std::shared_ptr<sre::Mesh> _meshes[MESH_COUNT];
 	std::shared_ptr<sre::Material> _material;
 	std::shared_ptr<sre::Texture> _texture;
 
@@ -22,23 +24,46 @@ private:
 	const glm::vec2 min = glm::vec2(0 * tileSizeWithBorder.x, 6 * tileSizeWithBorder.y) / textureSize;
 	const glm::vec2 max = min + tileSize / textureSize;
 
-	const std::vector<glm::vec3> positions[4] =
+	/*
+	  5------6
+	 /|  	/|
+	1------2 | 
+	| |	   | |
+	| 4----|-7
+	|/	   |/
+	0------3
+	*/
+
+	const std::vector<glm::vec3> positions[MESH_COUNT] =
 	{ 
 		// front
 		{
-			glm::vec3(-.5, -.5, .5),
-			glm::vec3(-.5, .5, .5),
-			glm::vec3(.5, .5, .5),
-			glm::vec3(.5, -.5, .5),
+			glm::vec3(-.5, -.5, .5), // 0
+			glm::vec3(-.5, .5, .5), // 1
+			glm::vec3(.5, .5, .5), // 2
+			glm::vec3(.5, -.5, .5), // 3
+		},
+		// right
+		{
+			glm::vec3(.5, -.5, .5), // 3
+			glm::vec3(.5, .5, .5), // 2
+			glm::vec3(.5, .5, -.5), // 6
+			glm::vec3(.5, -.5, -.5) // 7
 		},
 		// back
 		{
-			glm::vec3(-.5, -.5, -.5),
-			glm::vec3(-.5, .5, -.5),
-			glm::vec3(.5, .5, -.5),
-			glm::vec3(.5, -.5, -.5)
+			glm::vec3(.5, -.5, -.5), // 7
+			glm::vec3(.5, .5, -.5), // 6
+			glm::vec3(-.5, .5, -.5), // 5
+			glm::vec3(-.5, -.5, -.5), // 4
 		},
-		 
+		// left
+		{
+			glm::vec3(-.5, -.5, -.5), // 4
+			glm::vec3(-.5, .5, -.5), // 5
+			glm::vec3(-.5, .5, .5), // 1
+			glm::vec3(-.5, -.5, .5), // 0
+		},
 	};
 	
 	const std::vector<glm::vec4> uvs = 
@@ -47,34 +72,11 @@ private:
 		glm::vec4(min.x, max.y, 0, 0), 
 		glm::vec4(max.x, max.y, 0, 0),
 		glm::vec4(max.x, min.y, 0, 0),
-		
-		glm::vec4(max.x, min.y, 0, 0),
-		glm::vec4(max.x, max.y, 0, 0),
-		glm::vec4(min.x, max.y, 0, 0),
-		glm::vec4(min.x, min.y, 0, 0),
 	};
 	
-	const std::vector<uint16_t> idxs[4] =
+	const std::vector<uint16_t> idxs =
 	{ 
-		// front face
-		{
-			3, 1, 0,
-			3, 2, 1,
-		},
-		// right face
-		{
-			2, 3, 7,
-			7, 6, 2,
-		},
-		// back face
-		{
-			7, 5, 6,
-			7, 4, 5,
-		},
-		// left face
-		{
-			4, 0, 5,
-			0, 1, 5
-		}
+		3, 1, 0,
+		3, 2, 1,
 	};
 };
