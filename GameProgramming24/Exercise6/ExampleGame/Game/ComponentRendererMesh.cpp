@@ -3,6 +3,7 @@
 #include "glm/gtx/transform.hpp"
 
 void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
+    // don't init twice, might not be necessary
     if (_initialized) return;
 
     int index = serializedData["textureIndex"].GetInt();
@@ -45,7 +46,8 @@ void ComponentRendererMesh::Init(rapidjson::Value& serializedData) {
 void ComponentRendererMesh::Update(float deltaTime) {
     //// uncomment this block to rotate the mesh (useful to see all sides of the cube you are creating, for instance)
     
-    /*MyEngine::GameObject* gameObject = GetGameObject();
+    /*
+    MyEngine::GameObject* gameObject = GetGameObject();
     assert(gameObject);
     
     glm::mat4 transform = gameObject->GetTransform();

@@ -2,21 +2,14 @@
 
 #include "Engine/MyEngine.h"
 #include "ComponentRendererMesh.h"
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/transform.hpp>
 
 void ComponentLevelLayout::Init(rapidjson::Value& serializedData)
 {
-	assert(serializedData["dimX"].IsInt());
-	assert(serializedData["dimY"].IsInt());
-	
-	dimX = serializedData["dimX"].GetInt();
-	dimY = serializedData["dimY"].GetInt();
-
-	assert(dimX > 0);
-	assert(dimY > 0);
-
 	auto& levelValue = serializedData["level"];
 	
-	assert(levelValue.IsArray() && levelValue.Size() == dimY);
+	assert(levelValue.IsArray() && levelValue.Size());
 
 	for (int j = 0; j < levelValue.Size(); j++)
 	{
@@ -25,21 +18,6 @@ void ComponentLevelLayout::Init(rapidjson::Value& serializedData)
 			int element = levelValue[j][i].GetInt();
 			CreateCube(element, i, j);
 		}
-	}
-	//PrintLevel(level);
-}
-
-void ComponentLevelLayout::PrintLevel(std::vector<int>& level)
-{
-	std::cout << "Printing level: " << std::endl;
-	for (int j = 0; j < dimY; j++)
-	{
-		std::cout << "[ ";
-		for (int i = 0; i < dimX; i++)
-		{
-			std::cout << level[j * dimX + i] << " ";
-		}
-		std::cout << " ]" << std::endl;
 	}
 }
 
@@ -54,15 +32,22 @@ void ComponentLevelLayout::CreateCube(int textureIndex, int x, int y)
 	rapidjson::Value value(rapidjson::kObjectType);
 	value.AddMember("textureIndex", textureIndex, document.GetAllocator());
 	auto meshRenderer = std::make_shared<ComponentRendererMesh>();
-	meshRenderer->Init(value);
 
 	auto gameObject = engine->CreateGameObject("cube" + std::to_string(x) + std::to_string(y));
-	gameObject.lock().get()->SetPosition(position);
-	gameObject.lock().get()->AddComponent(meshRenderer);
+	auto p_gameObject = gameObject.lock().get();
+	auto transform =
+		glm::translate(position) *
+		glm::mat4_cast(glm::quat(glm::radians(glm::vec3(0, 0, 0)))) *
+		glm::scale(glm::vec3(1, 1, 1));
+	
+	p_gameObject->SetTransform(transform);
+	p_gameObject->AddComponent(meshRenderer);
 
+	meshRenderer->Init(value);
+	
 	std::cout
-		<< "Created " << gameObject.lock().get()->GetName()
-		<< ", x: " << gameObject.lock().get()->GetPosition().x
-		<< ", y: " << gameObject.lock().get()->GetPosition().y
-		<< ", z: " << gameObject.lock().get()->GetPosition().z << std::endl;
+		<< "Created " << p_gameObject->GetName()
+		<< ", x: " << p_gameObject->GetPosition().x
+		<< ", y: " << p_gameObject->GetPosition().y
+		<< ", z: " << p_gameObject->GetPosition().z << std::endl;
 }
